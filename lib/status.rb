@@ -25,6 +25,12 @@ class Status
   validates_present    :twitter_id, :text, :from_user_id, :from_user_name, :created_at
   validates_is_unique  :twitter_id
 
+  # return an array of random records (support same options as +all+)
+  # ex: Status.random(10, :created_at.gte => Time.now - 86400, :limit => 100)
+  def self.random(length = 10, options = {})
+    self.all(options).randomize.slice(0, length)
+  end
+
   # create a new record from Twitter status data
   def self.create_from_twitter(status_data)
     s = self.new

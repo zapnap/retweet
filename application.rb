@@ -32,6 +32,8 @@ end
 
 # root page
 get '/' do 
-  @statuses = Status.all(:order => [:created_at.desc], :limit => SiteConfig.status_length)
+  @statuses = Status.random(SiteConfig.status_length, 
+                            :order => [:created_at.desc], 
+                            :limit => SiteConfig.status_length * 3)
   haml :main
 end

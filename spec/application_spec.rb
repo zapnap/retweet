@@ -13,7 +13,7 @@ describe 'main application' do
   end
 
   specify 'should show the most recent statuses' do
-    Status.should_receive(:all).with(:order => [:created_at.desc], :limit => SiteConfig.status_length).and_return([@status])
+    Status.should_receive(:random).and_return([@status])
     get '/'
     @response.should be_ok
     @response.should have_tag('li', /#{@status.text}/, :count => 1)
