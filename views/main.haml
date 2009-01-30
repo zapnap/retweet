@@ -1,0 +1,5 @@
+%ul.status
+  - @statuses.each_with_index do |status, index|
+    %li{:style => "display: #{index == 0 ? 'block' : 'none'}"}
+      .text= highlight(status.text)
+      .author= "&mdash; #{profile_link(status.from_user_name)}"
