@@ -57,6 +57,13 @@ describe 'status' do
     Status.first.twitter_id.should == 1002
   end
 
+  specify 'should return random records' do
+    @statuses = [mock('Status 1'), mock('Status 2'), mock('Status 3')]
+    Status.should_receive(:all).with(:limit => 3).and_return(@statuses)
+    @statuses.should_receive(:randomize).and_return(@statuses.reverse)
+    Status.random(2, :limit => 3).should == @statuses.reverse.slice(0,2)
+  end
+
   describe 'when updating from Twitter' do
     before(:each) do
       Twitter::Search.stub!(:new).and_return([@status_data = status_data])
