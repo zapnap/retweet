@@ -34,12 +34,11 @@ namespace :twitter do
   end
 end
 
-# Rake task to install required gem dependencies
 namespace :gems do
-  desc 'Install Required Gems'
+  desc 'Install required gems'
   task :install do
-    required_gems = %w{ sinatra dm-core dm-validations 
+    required_gems = %w{ sinatra rspec dm-core dm-validations
                         dm-aggregates haml twitter rspec_hpricot_matchers }
-    required_gems.each {|required_gem| system "sudo gem install #{required_gem}" }
+    required_gems.each { |required_gem| system "sudo gem install #{required_gem}" }
   end
 end
