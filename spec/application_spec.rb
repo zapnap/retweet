@@ -1,6 +1,8 @@
 require "#{File.dirname(__FILE__)}/spec_helper"
 
 describe 'main application' do
+  include Sinatra::Test
+
   before(:each) do
     @status = mock('Status', :null_object => true)
     @status.stub!(:text).and_return("Here is some text")

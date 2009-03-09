@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'sinatra'
-require 'sinatra/test/rspec'
+require 'spec'
+require 'spec/interop/test'
+require 'sinatra/test'
 require 'rspec_hpricot_matchers'
 
 # set test environment
