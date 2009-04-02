@@ -1,4 +1,3 @@
-require 'environment'
 require 'spec/rake/spectask'
 
 task :default => :test
@@ -16,19 +15,19 @@ end
 
 namespace :db do
   desc 'Auto-migrate the database (destroys data)'
-  task :migrate do
+  task :migrate => :environment do
     DataMapper.auto_migrate!
   end
 
   desc 'Auto-upgrade the database (preserves data)'
-  task :upgrade do
+  task :upgrade => :environment do
     DataMapper.auto_upgrade!
   end
 end
 
 namespace :twitter do
   desc 'Update the local status cache'
-  task :update do
+  task :update => :environment do
     count = Status.update
     puts "#{count} new status updates retrieved"
   end
@@ -41,4 +40,8 @@ namespace :gems do
                         dm-aggregates haml twitter rspec_hpricot_matchers }
     required_gems.each { |required_gem| system "sudo gem install #{required_gem}" }
   end
+end
+
+task :environment do
+  require 'environment'
 end
