@@ -1,10 +1,10 @@
 = Retweet: A Twitter Application Template
 
-A base application template for building simple Twitter web apps with Sinatra and DataMapper. If you just want to build a simple keyword-based aggregator (such as http://tweetdreams.org), all you need to do is edit <tt>environment.rb</tt> to set the name of your app and the API search keyword(s), edit the CSS, and go.
+A base application template for building simple Twitter web apps with Sinatra and CouchDB. If you just want to build a simple keyword-based aggregator (such as http://tweetdreams.org), all you need to do is edit <tt>environment.rb</tt> to set the name of your app and the API search keyword(s), edit the CSS, and go.
 
 == Configuration
 
-Dependencies and all configuration is done in <tt>environment.rb</tt>. Your database is also set up here. DataMapper will use sqlite3 by default. Tests use the sqlite3-memory adapter (no configuration needed).
+Dependencies and all configuration is done in <tt>environment.rb</tt>. Your database is also set up here. Go ahead and change the connection string for CouchDB if you like; just make sure it's running and databases should be auto-created as needed.
 
 Add your controller actions in <tt>application.rb</tt>. Views for these actions are placed in the <tt>views</tt> directory. Static files, including a stock stylesheet, go in the <tt>public</tt> directory. Models go in the <tt>lib</tt> directory and are auto-loaded. 
 
@@ -16,7 +16,6 @@ Rspec is included in the template. Add your specs in <tt>spec</tt>; just require
 
 == Getting Started
 
-  rake db:migrate
   rake twitter:update
   ruby application.rb
 
