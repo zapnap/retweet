@@ -13,13 +13,16 @@ Sinatra::Base.set :logging, false
 
 require 'application'
 
-# establish in-memory database for testing
-DataMapper.setup(:default, "sqlite3::memory:")
-
 Spec::Runner.configure do |config|
   # additional matchers
   config.include(RspecHpricotMatchers)
 
-  # reset database before each example is run
-  config.before(:each) { DataMapper.auto_migrate! }
+  config.before(:each) do
+    begin
+      CouchRest.delete((SiteConfig.url_base_db || '') + SiteConfig.db_name)
+    rescue RestClient::ResourceNotFound
+    ensure
+      CouchRest.database!((SiteConfig.url_base_db || '') + SiteConfig.db_name)
+    end
+  end
 end
