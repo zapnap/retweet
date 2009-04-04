@@ -6,10 +6,10 @@ require 'rack/test'
 require 'rspec_hpricot_matchers'
 
 # set test environment
-set :environment, :test
-set :run, false
-set :raise_errors, true
-set :logging, false
+Sinatra::Base.set :environment, :test
+Sinatra::Base.set :run, false
+Sinatra::Base.set :raise_errors, true
+Sinatra::Base.set :logging, false
 
 require 'application'
 
