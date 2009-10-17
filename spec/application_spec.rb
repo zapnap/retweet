@@ -15,7 +15,7 @@ describe 'main application' do
   specify "should show the default index page" do
     get '/'
     last_response.should be_ok
-    last_response.body[0].should have_tag('title', /#{SiteConfig.title}/)
+    last_response.body.should have_tag('title', /#{SiteConfig.title}/)
   end
 
   specify 'should show the most recent statuses' do

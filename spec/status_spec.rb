@@ -66,26 +66,21 @@ describe 'status' do
 
   describe 'when updating from Twitter' do
     before(:each) do
-      Twitter::Search.stub!(:new).and_return([@status_data = status_data])
-      SiteConfig.search_keywords = ['keyword_one']
+      SiteConfig.search_keywords = ['key_one', 'key_two']
+      Grackle::Client.stub!(:new).and_return(@client = mock('Client', :[] => ''))
     end
 
     specify 'should retrieve remote data' do
+      @client[:search].should_receive(:search?).with(:q => 'key_one OR key_two').and_return(mock('TwitterStruct', :results => [@status_data = status_data]))
       Status.should_receive(:first).with(:twitter_id => 1002).and_return(false)
       Status.should_receive(:create_from_twitter).with(@status_data).and_return(true)
       Status.update
     end
 
     specify 'should not save update if status has already been recorded' do
+      @client[:search].should_receive(:search?).with(:q => 'key_one OR key_two').and_return(mock('TwitterStruct', :results => [@status_data = status_data]))
       Status.should_receive(:first).with(:twitter_id => 1002).and_return(true)
       Status.should_not_receive(:create_from_twitter)
-      Status.update
-    end
-
-    specify 'should query twitter API for each keyword' do
-      SiteConfig.search_keywords = ['keyword_one', 'keyword_two']
-      Twitter::Search.should_receive(:new).twice
-      Status.stub!(:first).and_return(true)
       Status.update
     end
   end

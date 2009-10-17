@@ -4,7 +4,7 @@ require 'dm-validations'
 require 'dm-aggregates'
 require 'haml'
 require 'ostruct'
-require 'twitter'
+require 'grackle'
 
 require 'sinatra' unless defined?(Sinatra)
 

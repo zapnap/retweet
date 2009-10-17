@@ -41,18 +41,19 @@ class Status
 
   # updates the local status cache from Twitter, returns number of new messages
   def self.update
+    keywords = SiteConfig.search_keywords.join(' OR ')
     count = 0
+
     begin
-      SiteConfig.search_keywords.each do |keyword|
-        Twitter::Search.new(keyword).each do |s|
-          unless self.first(:twitter_id => s.id)
-            self.create_from_twitter(s)
-            count += 1
-          end
+      client = Grackle::Client.new
+      client[:search].search?(:q => keywords).results.each do |s|
+        unless self.first(:twitter_id => s.id)
+          self.create_from_twitter(s)
+          count += 1
         end
       end
 
-    rescue SocketError => e
+    rescue Grackle::TwitterError => e
       puts e
     end
 
