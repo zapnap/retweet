@@ -46,7 +46,7 @@ class Status
 
     begin
       client = Grackle::Client.new
-      client[:search].search?(:q => keywords).results.each do |s|
+      client[:search].search?(:q => keywords, :rpp => 100).results.each do |s|
         unless self.first(:twitter_id => s.id)
           self.create_from_twitter(s)
           count += 1

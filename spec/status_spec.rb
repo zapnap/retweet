@@ -71,14 +71,14 @@ describe 'status' do
     end
 
     specify 'should retrieve remote data' do
-      @client[:search].should_receive(:search?).with(:q => 'key_one OR key_two').and_return(mock('TwitterStruct', :results => [@status_data = status_data]))
+      @client[:search].should_receive(:search?).with(:q => 'key_one OR key_two', :rpp => 100).and_return(mock('TwitterStruct', :results => [@status_data = status_data]))
       Status.should_receive(:first).with(:twitter_id => 1002).and_return(false)
       Status.should_receive(:create_from_twitter).with(@status_data).and_return(true)
       Status.update
     end
 
     specify 'should not save update if status has already been recorded' do
-      @client[:search].should_receive(:search?).with(:q => 'key_one OR key_two').and_return(mock('TwitterStruct', :results => [@status_data = status_data]))
+      @client[:search].should_receive(:search?).with(:q => 'key_one OR key_two', :rpp => 100).and_return(mock('TwitterStruct', :results => [@status_data = status_data]))
       Status.should_receive(:first).with(:twitter_id => 1002).and_return(true)
       Status.should_not_receive(:create_from_twitter)
       Status.update
