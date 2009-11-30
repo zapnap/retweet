@@ -101,8 +101,8 @@ describe 'status' do
       :text => 'did i mention that frogurt is delicious?',
       :from_user => 'zapnap',
       :from_user_id => '83034',
-      :to_user => '',
-      :to_user_id => '',
+      :to_user => nil,
+      :to_user_id => nil,
       :created_at => Time.now
     )
   end
