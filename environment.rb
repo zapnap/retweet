@@ -17,11 +17,11 @@ configure do
                  :status_length   => 20                        # number of tweets to display
                )
 
-  DataMapper.setup(:default, "sqlite3:///#{File.expand_path(File.dirname(__FILE__))}/#{Sinatra::Base.environment}.db")
+  DataMapper.setup(:default, "sqlite3:///#{File.join(File.expand_path(File.dirname(__FILE__)), Sinatra::Base.environment.to_s)}.db")
 
   # load models
-  $LOAD_PATH.unshift("#{File.dirname(__FILE__)}/lib")
-  Dir.glob("#{File.dirname(__FILE__)}/lib/*.rb") { |lib| require File.basename(lib, '.*') }
+  $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'lib'))
+  Dir.glob(File.join(File.dirname(__FILE__), 'lib', '*.rb')) { |lib| require File.basename(lib, '.*') }
 end
 
 # prevent Object#id warnings

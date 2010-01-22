@@ -3,7 +3,7 @@ require 'sinatra'
 require 'environment'
 
 configure do
-  set :views, "#{File.dirname(__FILE__)}/views"
+  set :views, File.join(File.dirname(__FILE__), 'views')
 end
 
 error do
